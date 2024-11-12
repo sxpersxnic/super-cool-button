@@ -21,7 +21,6 @@ const outputLines = [
   "You're my one and only"
 ];
 
-
 function generateRandomHex() {
   const r = 255; // Red component is always high for pink/rosa
   const g = generateRandomNumber(0, 192); // Green component is low to medium
@@ -60,7 +59,21 @@ function changeText() {
   document.getElementById('out').innerText = newText;
 }
 
+function updateClickCount() {
+  let clickCount = localStorage.getItem('clickCount');
+  clickCount = clickCount ? parseInt(clickCount) + 1 : 1;
+  localStorage.setItem('clickCount', clickCount);
+  document.getElementById('clickCount').innerText = `Button clicked ${clickCount} times`;
+}
+
 document.getElementById('btn').addEventListener('click', () => {
   changeBackgroundColor();
   changeText();
+  updateClickCount();
+});
+
+// Initialize click count on page load
+window.addEventListener('load', () => {
+  const clickCount = localStorage.getItem('clickCount') || 0;
+  document.getElementById('clickCount').innerText = `Button clicked ${clickCount} times`;
 });
